@@ -1,11 +1,15 @@
 <template>
-  <div id="home">
-    Home组件
+  <div>
+    <home-header></home-header>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import HomeHeader from './components/HomeHeader'
   export default {
+    components: {
+      HomeHeader
+    }
   }
 </script>
 
