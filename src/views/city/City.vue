@@ -1,11 +1,15 @@
 <template>
   <div>
-    City组件111
+    <city-header></city-header>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import CityHeader from './components/CityHeader'
   export default {
+    components: {
+      CityHeader
+    }
   }
 </script>
 

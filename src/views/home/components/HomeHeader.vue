@@ -9,7 +9,7 @@
        输入城市/景点/游玩主题</div>
      <div class="header-right">
        {{this.city}}
-       <span class="iconfont arrow-icon">&#xe64a;</span>
+       <span class="iconfont arrow-icon" @click="cityClick">&#xe64a;</span>
      </div>
   </div>
 </template>
@@ -20,6 +20,11 @@
     // 子组件接收从父组件传递过来的数据
     props:{
       city:String
+    },
+    methods: {
+      cityClick(){
+        this.$emit('cityClick')
+      }
     }
   }
 </script>

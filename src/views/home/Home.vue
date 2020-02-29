@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <home-header :city="city"></home-header>
+    <home-header :city="city" @cityClick="cityClick"></home-header>
     <home-swiper :swiper-list="swiperList"></home-swiper>
     <home-icons :icon-list="iconList"></home-icons>
     <home-recommend :recommend-list="recommendList"></home-recommend>
@@ -63,7 +63,9 @@ import axios from 'axios'
           }
         })
       },
-
+      cityClick(){
+        this.$router.push('/city')
+      }
     }
   }
 </script>
