@@ -1,13 +1,12 @@
 <template>
 <!-- 轮播图组件 -->
     <div class="wrapper">
-        <swiper :options="swiperOption">
+      <!-- 当图片 > 1时就开始自动轮播 -->
+        <swiper :options="swiperOption" v-if="showSwiper" >
           <!-- slides -->
           <swiper-slide v-for="(item, index) in swiperList" :key="index">
             <img class="swiper-img" :src="item.imgUrl" alt="">
           </swiper-slide>
-
-
           <!-- Optional controls -->
           <div class="swiper-pagination"  slot="pagination"></div>
 
@@ -18,6 +17,10 @@
 <script type="text/ecmascript-6">
   export default {
     // name:"Swiper",
+    // 接收父组件传递过来的参数
+    props:{
+      swiperList:Array
+    },
     data () {
       return {
         swiperOption:{
@@ -25,19 +28,21 @@
           pagination: '.swiper-pagination',
           // 循环轮播
           loop:true,
-          // 自动播放
-          // autoplay:true
+          observer:true,
+          observeParents:true,//修改swiper的父元素时，自动初始化swiper
+          // 设置autoplay的时间
+          autoplay: 3000,
+
         },
-        swiperList:[
-          {
-            id:'001',
-            imgUrl:'http://img1.qunarzz.com/piao/fusion/1801/1a/94428c6dea109402.jpg_640x200_2cf590d8.jpg'
-          },
-          {
-            id:'002',
-            imgUrl:'http://img1.qunarzz.com/piao/fusion/1802/42/7c92b9a381e46402.jpg_640x200_1cdce2a4.jpg'
-          }
-        ]
+
+      }
+    },
+    methods: {
+
+    },
+    computed: {
+      showSwiper(){
+        return this.swiperList.length
       }
     }
   }
@@ -46,7 +51,7 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 // 修改第三方插件的样式
   .wrapper >>> .swiper-pagination-bullet-active
-    background: #fff
+    background: #00bcd4
   .wrapper
     overflow: hidden
     width: 100%

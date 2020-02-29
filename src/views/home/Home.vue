@@ -1,10 +1,10 @@
 <template>
   <div id="home">
-    <home-header></home-header>
-    <home-swiper></home-swiper>
-    <home-icons></home-icons>
-    <home-recommend></home-recommend>
-    <home-weekend></home-weekend>
+    <home-header :city="city"></home-header>
+    <home-swiper :swiper-list="swiperList"></home-swiper>
+    <home-icons :icon-list="iconList"></home-icons>
+    <home-recommend :recommend-list="recommendList"></home-recommend>
+    <home-weekend :weekend-list="weekendList"></home-weekend>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ import HomeRecommend from './components/HomeRecommend'
 import HomeWeekend from './components/HomeWeekend'
 
 // import Scroll from '../../components/common/scroll/Scroll'
+import axios from 'axios'
   export default {
     components: {
       HomeHeader,
@@ -24,6 +25,45 @@ import HomeWeekend from './components/HomeWeekend'
       HomeRecommend,
       HomeWeekend,
       // Scroll
+    },
+    data () {
+      return {
+        city:'',//城市的数据
+        iconList:[],//icon数据
+        swiperList:[], //轮播图数据----请求数据用变量保存
+        recommendList:[], //热门数据
+        weekendList:[]//周末去哪儿数据
+      }
+    },
+    mounted () {
+      // 调用请求方法
+      this.getHomeInfo()
+    },
+    methods: {
+      getHomeInfo(){
+        // // axios返回一个promise，因此可以调用.then
+        axios.get('api/index.json').then(res =>{
+          console.log(res)
+          // 用一个变量保存数据
+          const data = res.data
+          // 如果后端正确返回并且res有data上
+          if(data.ret && data.data){
+            let res = data.data
+              // 获取城市的数据
+            this.city = res.city
+            // 轮播图数据
+            this.swiperList = res.swiperList
+            // icon数据
+            this.iconList = res. iconList
+            // 热门数据
+            this.recommendList = res.recommendList
+            // 周末去哪儿数据
+            this.weekendList = res.weekendList
+
+          }
+        })
+      },
+
     }
   }
 </script>

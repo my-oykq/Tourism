@@ -1,41 +1,39 @@
 <template>
   <div id="icons">
-    <swiper :options="swiperOption">
+    <swiper :options="swiperOption" v-if="showIcon">
         <swiper-slide v-for="(page, index) in pages" :key="index">
-            <div class="icon" v-for="item in page" :key="item.id">
-              <div class="icon-img">
-                <img :src="item.imageUrl" alt="">
-              </div>
-              <p class="icon-content">{{item.desc}}</p>
+          <div class="icon" v-for="item in page" :key="item.id">
+            <div class="icon-img">
+              <img :src="item.imgUrl" alt="">
             </div>
-          </swiper-slide>
-          <div class="swiper-pagination"  slot="pagination"></div>
+            <p class="icon-content">{{item.desc}}</p>
+          </div>
+        </swiper-slide>
+        <div class="swiper-pagination"  slot="pagination"></div>
     </swiper>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   export default {
+    props:{
+      iconList:Array
+    },
     data () {
       return {
         swiperOption:{
           pagination: '.swiper-pagination',
           loop:true //循环轮播
         },
-        iconList:[
-          {id:'001',imageUrl:'https://s.qunarzz.com/homenode/images/touchheader/hotel.png',desc:'酒店'},
-          {id:'002',imageUrl:'https://s.qunarzz.com/homenode/images/touchheader/piao.png',desc:'景点门票'},
-          {id:'003',imageUrl:'https://picbed.qunarzz.com/1316dc82d1ce6259686d5a68880e5a9d.png',desc:'攻略'},
-          {id:'004',imageUrl:'https://picbed.qunarzz.com/ae617a31e0bd5803d76918b817f6d942.png',desc:'自由行'},
-          {id:'005',imageUrl:'https://s.qunarzz.com/homenode/images/touchheader/package.png',desc:'度假'},
-          {id:'006',imageUrl:'https://s.qunarzz.com/homenode/images/touchheader/package.png',desc:'度假'},
-          {id:'007',imageUrl:'https://s.qunarzz.com/homenode/images/touchheader/package.png',desc:'度假'},
-          {id:'008',imageUrl:'https://s.qunarzz.com/homenode/images/touchheader/package.png',desc:'度假'},
-          {id:'009',imageUrl:'https://s.qunarzz.com/homenode/images/touchheader/package.png',desc:'度假'},
-        ]
+
       }
     },
     computed: {
+      //判断icon数据初始化显示第一页数据
+      showIcon(){
+        return this.iconList.length
+      },
+      // 通过遍历，一维数组生成二维数组
       pages(){
         const pages = []
         let smallArr = []
@@ -70,7 +68,6 @@
       width 25%
       position relative
       padding-bottom 25%
-
       .icon-img
         position absolute
         top 0
