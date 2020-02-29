@@ -24,7 +24,9 @@
           // 小圆点
           pagination: '.swiper-pagination',
           // 循环轮播
-          loop:true
+          loop:true,
+          // 自动播放
+          // autoplay:true
         },
         swiperList:[
           {

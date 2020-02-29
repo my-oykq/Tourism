@@ -10,6 +10,7 @@ import 'styles/border.css'
 import 'styles/iconfont.css'
 import 'swiper/dist/css/swiper.css'
 import Header from './components/common/header/Header.vue'
+import Scroll from './components/common/scroll/Scroll.vue'
 
 Vue.config.productionTip = false
 // 声明使用轮播图
@@ -24,3 +25,4 @@ new Vue({
 })
 // 注册全局组件---公共组件
 Vue.component('Header', Header)
+Vue.component('Scroll', Scroll)

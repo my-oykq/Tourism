@@ -1,4 +1,5 @@
 <template>
+<!-- header组件后期封装优化 -->
   <div class="header">
      <div class="header-left">
        <span class="iconfont back-icon">&#xe624;</span>
@@ -27,6 +28,8 @@
     display flex
     line-height .86rem
     color #fff
+    z-index 99
+    position relative
     .header-left
       width .64rem
       float left
