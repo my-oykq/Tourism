@@ -2,8 +2,11 @@
   <div>
     <city-header></city-header>
     <city-search></city-search>
-    <city-list :cities="cities" :hot-cities="hotCities"></city-list>
-    <city-tab :cities="cities"></city-tab>
+    <city-list
+      :cities="cities"
+      :hot-cities="hotCities"
+      :letter="letter"></city-list>
+    <city-tab :cities="cities" @change="change"></city-tab>
   </div>
 </template>
 
@@ -24,6 +27,7 @@ import CityTab from './components/CityTab'
     },
     data () {
       return {
+        letter:'',//父组件传给子组件的参数
         cities:{}, //存放右边 A BCD的数据
         hotCities:[], // 热门城市的数据
       }
@@ -44,6 +48,12 @@ import CityTab from './components/CityTab'
             this.hotCities = res.hotCities
           }
         })
+      },
+
+      // 事件处理,接收子组件自定义事件传递过来的参数，形参名字可以任意取，但是要与实参的个数保持一致
+      change(letter){
+        // 把改变的letter赋值给新的letter
+        this.letter = letter
       }
     }
   }

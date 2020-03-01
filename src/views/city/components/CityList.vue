@@ -18,7 +18,11 @@
               </div>
             </div>
           </div>
-          <div class="city-area" v-for="(item, key) in cities" :key="key">
+          <!-- ref拿到对应的元素，因为是在City组件点击字母 key切换对应的文字，因此，ref绑定的是key， -->
+          <div class="city-area"
+              v-for="(item, key) in cities"
+              :key="key"
+              :ref="key">
             <!-- A -->
             <div class="title border-topbottom">{{key}}</div>
             <div class="item-list">
@@ -35,10 +39,23 @@ import Bscroll from 'better-scroll'
   export default {
     props:{
       cities:Object,
-      hotCities:Array
+      hotCities:Array,
+      letter:String
     },
     mounted () {
       this.scroll = new Bscroll(this.$refs.wrapper)
+    },
+    // 监听City组件点击字母时，List组件切换到对应字母的文字--就是说监听letter
+    watch: {
+      letter () {
+        // 1.如果letter一旦发生改变的话
+        if(this.letter){
+          // 3.拿到对应的key，也就是改变的letter[0]拿到数组第一个div元素
+          const element = this.$refs[this.letter][0]
+          this.scroll.scrollToElement(element)
+        }
+
+      }
     }
   }
 </script>
