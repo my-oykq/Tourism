@@ -41,6 +41,7 @@
 
     },
     computed: {
+      // 当轮播图的长度发生改变时就会触发computed
       showSwiper(){
         return this.swiperList.length
       }

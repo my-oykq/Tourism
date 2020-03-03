@@ -6,7 +6,10 @@
       <!-- keyword有值时把城市隐藏，没有值时显示城市列表 -->
       <div class="search-content" ref="search" v-show="keyword">
         <ul>
-          <li class="search-item border-bottom" v-for="item in list" :key="item.id">{{item.name}}</li>
+          <li class="search-item border-bottom"
+            v-for="item in list"
+             :key="item.id"
+             @click="handleClick(item.name)">{{item.name}}</li>
           <!-- 当list的长度为0时才会出现 -->
            <li class="search-item border-bottom" v-show="hasNoList">没有找到匹配数据</li>
         </ul>
@@ -16,6 +19,7 @@
 
 <script type="text/ecmascript-6">
 import Bscroll from 'better-scroll'
+import { mapMutations } from 'vuex'
   export default {
     name:"CitySearch",
     props:{
@@ -67,8 +71,22 @@ import Bscroll from 'better-scroll'
     },
     mounted () {
       this.scroll = new Bscroll(this.$refs.search)
+    },
+    methods: {
+      handleClick(city){
+        // 通过触发actions，把参数传过去，通过actions提交到mutations来修改city
+        // this.$store.dispatch('changeCity',city)
+
+        // 通过触发actions，把参数传过去，通过actions提交到mutations来修改city
+          this.$store.dispatch('changeCity',city)
+          // this.changeCity(city)
+          // 页面跳转
+          this.$router.push('/')
+      },
+        //  ...mapMutations(['changeCity'])
+      }
     }
-  }
+
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

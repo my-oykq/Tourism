@@ -8,23 +8,28 @@
        <span class="iconfont">&#xe632;</span>
        输入城市/景点/游玩主题</div>
      <div class="header-right">
-       {{this.city}}
+       {{this.doubleCity}}
        <span class="iconfont arrow-icon" @click="cityClick">&#xe64a;</span>
      </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { mapState, mapGetters } from 'vuex'
   export default {
     name:"HomeHeader",
     // 子组件接收从父组件传递过来的数据
     props:{
-      city:String
+      // city:String
     },
     methods: {
       cityClick(){
         this.$emit('cityClick')
       }
+    },
+    computed: {
+      ...mapState(['city']),
+      ...mapGetters(['doubleCity'])
     }
   }
 </script>
@@ -57,7 +62,8 @@
       border-radius .1rem
       color #ccc
     .header-right
-      width 1.24rem
+      min-width 1.04rem
+      padding 0 .1rem
       float right
       text-align center
       .arrow-icon

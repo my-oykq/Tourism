@@ -6,14 +6,17 @@
           <div class="title border-topbottom">您的位置</div>
           <div class="button-list">
             <div class="button-wrapper">
-                <div class="button">北京</div>
+                <div class="button">{{this.city}}</div>
             </div>
           </div>
           <div class="city-area">
             <!-- 热门城市 -->
             <div class="title border-topbottom">热门城市</div>
             <div class="button-list">
-              <div class="button-wrapper" v-for="item in hotCities" :key="item.id">
+              <div class="button-wrapper"
+                v-for="item in hotCities"
+                :key="item.id"
+                 @click="handleClick(item.name)">
                 <div class="button">{{item.name}}</div>
               </div>
             </div>
@@ -26,7 +29,10 @@
             <!-- A -->
             <div class="title border-topbottom">{{key}}</div>
             <div class="item-list">
-              <div class="item" v-for="inner in item" :key="inner.id">{{inner.name}}</div>
+              <div class="item"
+               v-for="inner in item"
+                :key="inner.id"
+                @click="handleClick(inner.name)">{{inner.name}}</div>
             </div>
           </div>
       </div>
@@ -36,11 +42,16 @@
 
 <script type="text/ecmascript-6">
 import Bscroll from 'better-scroll'
+import { mapState,mapMutations } from 'vuex'
   export default {
     props:{
       cities:Object,
       hotCities:Array,
       letter:String
+    },
+    computed: {
+      ...mapState(['city']),
+      // ...mapMutations(['CITY'])
     },
     mounted () {
       this.scroll = new Bscroll(this.$refs.wrapper)
@@ -52,10 +63,21 @@ import Bscroll from 'better-scroll'
         if(this.letter){
           // 3.拿到对应的key，也就是改变的letter[0]拿到数组第一个div元素
           const element = this.$refs[this.letter][0]
+          // 2.调用scroll中scrollToElement
           this.scroll.scrollToElement(element)
         }
 
       }
+    },
+    methods: {
+      handleClick(city){
+        // 通过触发actions，把参数传过去，通过actions提交到mutations来修改city
+        this.$store.dispatch('changeCity',city)
+        // this.changeCity(city)
+        // 页面跳转
+        this.$router.push('/')
+      },
+
     }
   }
 </script>

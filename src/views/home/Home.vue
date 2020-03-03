@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <home-header :city="city" @cityClick="cityClick"></home-header>
+    <home-header @cityClick="cityClick"></home-header>
     <home-swiper :swiper-list="swiperList"></home-swiper>
     <home-icons :icon-list="iconList"></home-icons>
     <home-recommend :recommend-list="recommendList"></home-recommend>
@@ -28,7 +28,7 @@ import axios from 'axios'
     },
     data () {
       return {
-        city:'',//城市的数据
+        // city:'',//城市的数据
         iconList:[],//icon数据
         swiperList:[], //轮播图数据----请求数据用变量保存
         recommendList:[], //热门数据
@@ -43,14 +43,14 @@ import axios from 'axios'
       getHomeInfo(){
         // // axios返回一个promise，因此可以调用.then
         axios.get('api/index.json').then(res =>{
-          console.log(res)
+          // console.log(res)
           // 用一个变量保存数据
           const data = res.data
           // 如果后端正确返回并且res有data上
           if(data.ret && data.data){
             let res = data.data
               // 获取城市的数据
-            this.city = res.city
+            // this.city = res.city
             // 轮播图数据
             this.swiperList = res.swiperList
             // icon数据
