@@ -3,7 +3,7 @@
   <div>
     <div class="recommend-title">热销推荐</div>
     <ul>
-      <li class="item" v-for="(item, index) in recommendList" :key="index">
+      <li class="item" v-for="(item, index) in recommendList" :key="index" @click="detailList(item)">
         <img class="recommend-img" :src="item.imgUrl" alt="">
         <div class="recommend-info">
           <p class="title">{{item.title}}</p>
@@ -23,6 +23,12 @@
     data () {
       return {
 
+      }
+    },
+    methods: {
+      detailList(item){
+        // 获取传过来id
+        this.$router.push('/detail/' + item.id)
       }
     }
   }
