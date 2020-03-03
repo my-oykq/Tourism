@@ -17,6 +17,7 @@ import HomeWeekend from './components/HomeWeekend'
 
 // import Scroll from '../../components/common/scroll/Scroll'
 import axios from 'axios'
+import {mapState} from 'vuex'
   export default {
     components: {
       HomeHeader,
@@ -32,17 +33,23 @@ import axios from 'axios'
         iconList:[],//icon数据
         swiperList:[], //轮播图数据----请求数据用变量保存
         recommendList:[], //热门数据
-        weekendList:[]//周末去哪儿数据
+        weekendList:[],//周末去哪儿数据
+        lastCity:''
       }
     },
     mounted () {
       // 调用请求方法
       this.getHomeInfo()
+      // 对上一次的city做一次保存
+      this.lastCity  = this.city
+    },
+    computed: {
+      ...mapState(['city'])
     },
     methods: {
       getHomeInfo(){
         // // axios返回一个promise，因此可以调用.then
-        axios.get('api/index.json').then(res =>{
+        axios.get('api/index.json?city=' + this.city).then(res =>{
           // console.log(res)
           // 用一个变量保存数据
           const data = res.data
@@ -66,6 +73,15 @@ import axios from 'axios'
       cityClick(){
         this.$router.push('/city')
       }
+    },
+    activated () {
+      // 当页面重新被激活的时候,与上一次城市不相的时候
+       if (this.lastCity !== this.city) {
+        //  让上一次城市的值跟着改变
+           this.lastCity = this.city
+          //  调用ajax
+           this.getHomeInfo()
+        }
     }
   }
 </script>
